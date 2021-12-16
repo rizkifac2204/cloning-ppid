@@ -1,7 +1,5 @@
 import Head from 'next/head'
-import '/styles/style.css'
 import Layout from "@/components/Layout"
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Toast dibutuhkan pada semua halaman termasuk saat logout
 import {ToastContainer} from 'react-toastify'
