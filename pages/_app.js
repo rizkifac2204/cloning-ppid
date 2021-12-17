@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Layout from "@/components/Layout"
-
-// tambaha cona
+import '../styles/globals.css'
 
 // Toast dibutuhkan pada semua halaman termasuk saat logout
 import {ToastContainer} from 'react-toastify'
@@ -21,6 +20,11 @@ import { SessionProvider, useSession, signIn } from "next-auth/react"
 import {useEffect} from 'react'
 
 function MyApp({ Component, pageProps : {session, ...pageProps} }) {
+
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap");
+  }, []);
+  
   return (
     <>
       <Head>

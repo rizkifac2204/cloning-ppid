@@ -12,4 +12,7 @@ function Dashboard() {
 }
 
 Dashboard.auth=true
+Dashboard.header = {
+  title: "Dashboard"
+}
 export default Dashboard
