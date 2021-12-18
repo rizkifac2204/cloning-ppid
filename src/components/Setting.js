@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faTimes } from '@fortawesome/free-solid-svg-icons'
+import {useState, useEffect} from 'react'
 
-function Setting() {
+function Setting(props) {
+  const [isShow, setIsShow] = useState(false)
   return (
-    <div className="fixed-plugin">
+    <div className={`fixed-plugin ${isShow && 'show'}`}>
       <a className="fixed-plugin-button text-dark position-fixed px-3 py-2">
-        <FontAwesomeIcon icon={faCog} onClick={e => e.stopPropagation()} />
+        <FontAwesomeIcon icon={faCog} onClick={() => setIsShow(true)} />
       </a>
       <div className="card shadow-lg">
         <div className="card-header pb-0 pt-3">
@@ -15,7 +17,7 @@ function Setting() {
           </div>
           {/* Toggle Button  */}
           <div className="float-end mt-4">
-            <button className="btn btn-link text-dark p-0 fixed-plugin-close-button">
+            <button className="btn btn-link text-dark p-0 fixed-plugin-close-button" onClick={() => setIsShow(false)}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
@@ -33,34 +35,28 @@ function Setting() {
           >
             <div className="badge-colors my-2 text-start">
               <span
-                className="badge filter bg-gradient-primary active"
-                data-color="primary"
-                onClick={()=>(console.log('ok'))}
+                className="badge filter bg-gradient-primary"
+                onClick={()=>props.hanldeChangeSideColor('primary')}
               />
               <span
                 className="badge filter bg-gradient-dark"
-                data-color="dark"
-                onClick={()=>(console.log('ok'))}
+                onClick={()=>props.hanldeChangeSideColor('dark')}
               />
               <span
                 className="badge filter bg-gradient-info"
-                data-color="info"
-                onClick={()=>(console.log('ok'))}
+                onClick={()=>props.hanldeChangeSideColor('info')}
               />
               <span
                 className="badge filter bg-gradient-success"
-                data-color="success"
-                onClick={()=>(console.log('ok'))}
+                onClick={()=>props.hanldeChangeSideColor('success')}
               />
               <span
                 className="badge filter bg-gradient-warning"
-                data-color="warning"
-                onClick={()=>(console.log('ok'))}
+                onClick={()=>props.hanldeChangeSideColor('warning')}
               />
               <span
                 className="badge filter bg-gradient-danger"
-                data-color="danger"
-                onClick={()=>(console.log('ok'))}
+                onClick={()=>props.hanldeChangeSideColor('danger')}
               />
             </div>
           </a>
@@ -73,22 +69,19 @@ function Setting() {
           <div className="d-flex">
             <button
               className="btn bg-gradient-dark px-3 mb-2 active"
-              data-class="bg-gradient-dark"
-              onClick={()=>(console.log('ok'))}
+              onClick={()=>props.hanldeChangeSideNav("bg-gradient-dark")}
             >
               Dark
             </button>
             <button
               className="btn bg-gradient-dark px-3 mb-2 ms-2"
-              data-class="bg-transparent"
-              onClick={()=>(console.log('ok'))}
+              onClick={()=>props.hanldeChangeSideNav("bg-transparent")}
             >
               Transparent
             </button>
             <button
               className="btn bg-gradient-dark px-3 mb-2 ms-2"
-              data-class="bg-white"
-              onClick={()=>(console.log('ok'))}
+              onClick={()=>props.hanldeChangeSideNav("bg-white")}
             >
               White
             </button>

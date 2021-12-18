@@ -21,7 +21,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="g-sidenav-show  bg-gray-200">
+        <body className="g-sidenav-show bg-gray-200 g-sidenav-pinned">
           <Main />
           <NextScript />
         </body>
