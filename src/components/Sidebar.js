@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faHome, faCoffee } from '@fortawesome/free-solid-svg-icons'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 function Sidebar(props) {
   function textColor(){
@@ -44,45 +45,79 @@ function Sidebar(props) {
         </Link>
       </div>
       <hr className="horizontal light mt-0 mb-2" />
-      <div className="collapse navbar-collapse w-auto">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <Link href="/admin">
-              <a className={`nav-link ${activeLink('/admin')}`}>
-                <div className={`text-center me-2 d-flex align-items-center justify-content-center`}>
-                  <FontAwesomeIcon icon={faHome} />
-                </div>
-                <span className="nav-link-text ms-1">Dashboard</span>
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item mt-3">
-            <h6 className={`ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-8 ${textColor()}`}>
-              Testing
-            </h6>
-          </li>
-          <li className="nav-item">
-            <Link href="/admin/coba">
-              <a className={`nav-link ${activeLink('/admin/coba')}`}>
-                <div className="text-center me-2 d-flex align-items-center justify-content-center">
-                  <FontAwesomeIcon icon={faCoffee} />
-                </div>
-                <span className="nav-link-text ms-1">Coba</span>
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link href="/admin/coba">
-              <a className={`nav-link ${activeLink('/admin/lagi')}`}>
-                <div className="text-center me-2 d-flex align-items-center justify-content-center">
-                  <FontAwesomeIcon icon={faCoffee} />
-                </div>
-                <span className="nav-link-text ms-1">lagi</span>
-              </a>
-            </Link>
-          </li>
-        </ul>
-      </div>
+      
+        <div className="collapse navbar-collapse w-auto">
+          <PerfectScrollbar>
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link href="/admin">
+                <a className={`nav-link ${activeLink('/admin')}`}>
+                  <div className={`text-center me-2 d-flex align-items-center justify-content-center`}>
+                    <FontAwesomeIcon icon={faHome} />
+                  </div>
+                  <span className="nav-link-text ms-1">Dashboard</span>
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item mt-3">
+              <h6 className={`ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-8 ${textColor()}`}>
+                Testing
+              </h6>
+            </li>
+            <li className="nav-item">
+              <Link href="/admin/coba">
+                <a className={`nav-link ${activeLink('/admin/coba')}`}>
+                  <div className="text-center me-2 d-flex align-items-center justify-content-center">
+                    <FontAwesomeIcon icon={faCoffee} />
+                  </div>
+                  <span className="nav-link-text ms-1">Coba</span>
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/admin/coba">
+                <a className={`nav-link ${activeLink('/admin/lagi')}`}>
+                  <div className="text-center me-2 d-flex align-items-center justify-content-center">
+                    <FontAwesomeIcon icon={faCoffee} />
+                  </div>
+                  <span className="nav-link-text ms-1">lagi</span>
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/admin/coba">
+                <a className={`nav-link ${activeLink('/admin/lagi')}`}>
+                  <div className="text-center me-2 d-flex align-items-center justify-content-center">
+                    <FontAwesomeIcon icon={faCoffee} />
+                  </div>
+                  <span className="nav-link-text ms-1">lagi</span>
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/admin/coba">
+                <a className={`nav-link ${activeLink('/admin/lagi')}`}>
+                  <div className="text-center me-2 d-flex align-items-center justify-content-center">
+                    <FontAwesomeIcon icon={faCoffee} />
+                  </div>
+                  <span className="nav-link-text ms-1">lagi</span>
+                </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/admin/coba">
+                <a className={`nav-link ${activeLink('/admin/lagi')}`}>
+                  <div className="text-center me-2 d-flex align-items-center justify-content-center">
+                    <FontAwesomeIcon icon={faCoffee} />
+                  </div>
+                  <span className="nav-link-text ms-1">lagi</span>
+                </a>
+              </Link>
+            </li>
+          </ul>
+          </PerfectScrollbar>
+        </div>
+      
       <div className="sidenav-footer position-absolute w-100 bottom-0 ">
         <div className="mx-3">
           <a

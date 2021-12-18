@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import {signOut} from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 const listBreadCrumb = (breadcrumb) => {
   return (
@@ -27,13 +28,22 @@ const listBreadCrumb = (breadcrumb) => {
   )
 }
 
-function Header({header}) {
+const hanldeMenuShow = () => {
+  let classMenu = 'g-sidenav-pinned'
+  if(document.body.classList.contains(classMenu)){
+    document.body.classList.remove(classMenu)
+  } else {
+    document.body.classList.add(classMenu)
+  }
+}
+
+function Header(props) {
   const [breadcrumb, setbreadcrumb] = useState([])
   const [title, settitle] = useState('Empty')
   useEffect(()=>{
-    setbreadcrumb(header.breadcrumb ? header.breadcrumb : [{ url:'/admin', text:'Home' }])
-    settitle(header.title ? header.title : "empty")
-  },[header])
+    setbreadcrumb(props.header.breadcrumb ? props.header.breadcrumb : [{ url:'/admin', text:'Home' }])
+    settitle(props.header.title ? props.header.title : "empty")
+  },[props.header])
 
   return (
     <nav
@@ -63,6 +73,7 @@ function Header({header}) {
               <a
                 className="nav-link text-body p-0"
                 id="iconNavbarSidenav"
+                onClick={()=>hanldeMenuShow()}
               >
                 <div className="sidenav-toggler-inner">
                   <i className="sidenav-toggler-line" />
@@ -130,6 +141,11 @@ function Header({header}) {
                   </a>
                 </li>
               </ul>
+            </li>
+            <li className="nav-item dropdown d-flex align-items-center">
+              <a className="nav-link text-body p-0">
+                <FontAwesomeIcon icon={faSignOutAlt} onClick={()=>signOut()} />
+              </a>
             </li>
           </ul>
         </div>

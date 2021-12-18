@@ -1,70 +1,99 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faTimes } from '@fortawesome/free-solid-svg-icons'
-import {useState, useEffect} from 'react'
+import { faCog, faTimes, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import {useState} from 'react'
+import Link from 'next/link'
+import {signOut} from 'next-auth/react'
 
 function Setting(props) {
-  const [isShow, setIsShow] = useState(false)
+
+  function handleFixed(e){
+    if(e.target.checked){
+      document.getElementById('navbarBlur').classList.add("position-sticky", "blur", "shadow-blur", "mt-4", "left-auto", "top-1", "z-index-sticky")
+    } else {
+      document.getElementById('navbarBlur').classList.remove("position-sticky", "blur", "shadow-blur", "mt-4", "left-auto", "top-1", "z-index-sticky")
+    }
+  }
   return (
-    <div className={`fixed-plugin ${isShow && 'show'}`}>
+    <div className={`fixed-plugin ${props.settingShow && 'show'}`} id='fixedSetting'>
       <a className="fixed-plugin-button text-dark position-fixed px-3 py-2">
-        <FontAwesomeIcon icon={faCog} onClick={() => setIsShow(true)} />
+        <FontAwesomeIcon icon={faCog} onClick={() => props.hanldeSettingShow(true)} />
       </a>
       <div className="card shadow-lg">
         <div className="card-header pb-0 pt-3">
+          {/* Text Keterangan */}
           <div className="float-start">
             <h5 className="mt-3 mb-0">Setting</h5>
             <p>Pengaturan Profile dan Tampilan</p>
           </div>
           {/* Toggle Button  */}
           <div className="float-end mt-4">
-            <button className="btn btn-link text-dark p-0 fixed-plugin-close-button" onClick={() => setIsShow(false)}>
+            <button className="btn btn-link text-dark p-0 fixed-plugin-close-button" onClick={() => props.hanldeSettingShow(false)}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
-          {/* End Toggle Button */}
         </div>
-        <hr className="horizontal dark my-1" />
+        <hr className="horizontal dark my-2" />
         <div className="card-body pt-sm-3 pt-0">
+          <div className="mt-0">
+            <h6 className="mb-2">Profile</h6>
+          </div>
+          <div className="d-flex flex-column">
+            <Link href="/admin/profile">
+              <a className="btn bg-gradient-dark px-3 mb-2">
+                Profile
+              </a>
+            </Link>
+            <Link href="/admin/profile/edit">
+              <a className="btn bg-gradient-dark px-3 mb-2">
+                Ganti Data Diri
+              </a>
+            </Link>
+            <button
+              className="btn bg-gradient-dark px-3 mb-0"
+              onClick={()=>signOut()}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} /> Log Out
+            </button>
+          </div>
+          <hr className="horizontal dark" />
+        </div>
+        <hr className="horizontal dark my-0" />
+        <div className="card-body pt-0">
           {/* Sidebar Backgrounds */}
           <div>
-            <h6 className="mb-0">Sidebar Colors</h6>
+            <h6 className="mb-0">Warna Menu</h6>
+            <a className="switch-trigger background-color">
+              <div className="badge-colors my-2 text-start">
+                <span
+                  className="badge filter bg-gradient-primary"
+                  onClick={()=>props.hanldeChangeSideColor('primary')}
+                />
+                <span
+                  className="badge filter bg-gradient-dark"
+                  onClick={()=>props.hanldeChangeSideColor('dark')}
+                />
+                <span
+                  className="badge filter bg-gradient-info"
+                  onClick={()=>props.hanldeChangeSideColor('info')}
+                />
+                <span
+                  className="badge filter bg-gradient-success"
+                  onClick={()=>props.hanldeChangeSideColor('success')}
+                />
+                <span
+                  className="badge filter bg-gradient-warning"
+                  onClick={()=>props.hanldeChangeSideColor('warning')}
+                />
+                <span
+                  className="badge filter bg-gradient-danger"
+                  onClick={()=>props.hanldeChangeSideColor('danger')}
+                />
+              </div>
+            </a>
           </div>
-          <a
-            href="#"
-            className="switch-trigger background-color"
-          >
-            <div className="badge-colors my-2 text-start">
-              <span
-                className="badge filter bg-gradient-primary"
-                onClick={()=>props.hanldeChangeSideColor('primary')}
-              />
-              <span
-                className="badge filter bg-gradient-dark"
-                onClick={()=>props.hanldeChangeSideColor('dark')}
-              />
-              <span
-                className="badge filter bg-gradient-info"
-                onClick={()=>props.hanldeChangeSideColor('info')}
-              />
-              <span
-                className="badge filter bg-gradient-success"
-                onClick={()=>props.hanldeChangeSideColor('success')}
-              />
-              <span
-                className="badge filter bg-gradient-warning"
-                onClick={()=>props.hanldeChangeSideColor('warning')}
-              />
-              <span
-                className="badge filter bg-gradient-danger"
-                onClick={()=>props.hanldeChangeSideColor('danger')}
-              />
-            </div>
-          </a>
-
           {/* Sidenav Type */}
-          <div className="mt-3">
-            <h6 className="mb-0">Sidenav Type</h6>
-            <p className="text-sm">Choose between 2 different sidenav types.</p>
+          <div className="mt-2">
+            <h6 className="mb-2">Type Menu</h6>
           </div>
           <div className="d-flex">
             <button
@@ -86,9 +115,6 @@ function Setting(props) {
               White
             </button>
           </div>
-          <p className="text-sm d-xl-none d-block mt-2">
-            You can change the sidenav type just on desktop view.
-          </p>
           {/* Navbar Fixed */}
           <div className="mt-3 d-flex">
             <h6 className="mb-0">Navbar Fixed</h6>
@@ -97,12 +123,13 @@ function Setting(props) {
                 className="form-check-input mt-1 ms-auto"
                 type="checkbox"
                 id="navbarFixed"
-                onClick={()=>(console.log('ok'))}
+                onChange={handleFixed.bind(this)}
               />
             </div>
           </div>
           <hr className="horizontal dark my-3" />
-          <div className="mt-2 d-flex">
+          {/* dark theme */}
+          <div className="d-flex">
             <h6 className="mb-0">Light / Dark</h6>
             <div className="form-check form-switch ps-0 ms-auto my-auto">
               <input
@@ -114,38 +141,6 @@ function Setting(props) {
             </div>
           </div>
           <hr className="horizontal dark my-sm-4" />
-          <a className="btn btn-outline-dark w-100" href="#">
-            View documentation
-          </a>
-          <div className="w-100 text-center">
-            <a
-              className="github-button"
-              href="https://github.com/creativetimofficial/material-dashboard"
-              data-icon="octicon-star"
-              data-size="large"
-              data-show-count="true"
-              aria-label="Star creativetimofficial/material-dashboard on GitHub"
-            >
-              Star
-            </a>
-            <h6 className="mt-3">Thank you for sharing!</h6>
-            <a
-              href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
-              className="btn btn-dark mb-0 me-2"
-              target="_blank"
-            >
-              <i className="fab fa-twitter me-1" aria-hidden="true" /> Tweet
-            </a>
-            <a
-              href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard"
-              className="btn btn-dark mb-0 me-2"
-              target="_blank"
-            >
-              <i className="fab fa-facebook-square me-1" aria-hidden="true" />{" "}
-              Share
-            </a>
-          </div>
-          
         </div>
       </div>
     </div>
