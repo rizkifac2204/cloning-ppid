@@ -18,8 +18,8 @@ export default function Layout({ children }) {
   const [sideColor, setSideColor] = useState("");
   const router = useRouter();
 
-  const CsettingNav = Cookies.get("settingNav");
   useEffect(() => {
+    const CsettingNav = Cookies.get("settingNav");
     if (CsettingNav || CsettingNav !== "{}") {
       setCookie(JSON.parse(CsettingNav));
       if (JSON.parse(CsettingNav).CdarkTheme) {
@@ -35,7 +35,7 @@ export default function Layout({ children }) {
       setSideNav("bg-gradient-dark");
       setSideColor("primary");
     }
-  }, [CsettingNav]);
+  }, []);
 
   const hanldeChangeSideNav = (color) => {
     setSideNav(color);
@@ -98,10 +98,7 @@ export default function Layout({ children }) {
         darkTheme={darkTheme}
       />
 
-      {/* <Script src="/assets/js/plugins/perfect-scrollbar.min.js" />
-      <Script src="/assets/js/plugins/smooth-scrollbar.min.js" /> */}
-      {/* <Script src="https://buttons.github.io/buttons.js" /> */}
-      {/* <Script src="/assets/js/material-dashboard.js?v=3.0.0" /> */}
+      <Script src="/assets/js/custom.js" />
     </>
   );
 }
