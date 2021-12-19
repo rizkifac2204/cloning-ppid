@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
 import Script from 'next/script'
+import Cookies from 'js-cookie'
 // scrollbarr 
 import PerfectScrollbar from 'react-perfect-scrollbar'
 // Components 
@@ -10,14 +11,63 @@ import Setting from './Setting'
 import Footer from './Footer'
 
 export default function Layout({children}) {
-  const [sideNav, setSideNav] = useState('bg-gradient-dark')
-  const [sideColor, setSideColor] = useState('primary')
   const [settingShow, setSettingShow] = useState(false)
+  const [cookie, setCookie] = useState({})
+  const [darkTheme, setDarkTheme] = useState(false)
+  const [sideNav, setSideNav] = useState('')
+  const [sideColor, setSideColor] = useState('')
   const router = useRouter()
+  
+  const CsettingNav = Cookies.get('settingNav')
+  useEffect(() => {
+    if(CsettingNav || CsettingNav !== '{}'){
+      setCookie(JSON.parse(CsettingNav))
+      if(JSON.parse(CsettingNav).CdarkTheme){
+        document.body.classList.add("dark-version")
+      } else {
+        document.body.classList.remove("dark-version")
+      }
+      setDarkTheme(JSON.parse(CsettingNav).CdarkTheme || false)
+      setSideNav(JSON.parse(CsettingNav).CsideNav || 'bg-gradient-dark')
+      setSideColor(JSON.parse(CsettingNav).CsideColor || 'primary')
+    } else {
+      setDarkTheme(false)
+      setSideNav('bg-gradient-dark')
+      setSideColor('primary')
+    }
+  }, [])
 
-  const hanldeChangeSideNav = color => setSideNav(color)
-  const hanldeChangeSideColor = color => setSideColor(color)
+  const hanldeChangeSideNav = color => {
+    setSideNav(color)
+    setCookie({
+      ...cookie,
+      CsideNav:color
+    })
+  }
+  const hanldeChangeSideColor = color => {
+    setSideColor(color)
+    setCookie({
+      ...cookie,
+      CsideColor:color
+    })
+  }
+  const handleDarkTheme = e => {
+    setDarkTheme(e.target.checked)
+    setCookie({
+      ...cookie,
+      CdarkTheme:e.target.checked
+    })
+    if(e.target.checked){
+      document.body.classList.add("dark-version")
+    } else {
+      document.body.classList.remove("dark-version")
+    }
+  }
   const hanldeSettingShow = bool => setSettingShow(bool)
+
+  useEffect(() => {
+    Cookies.set('settingNav', JSON.stringify(cookie))
+  }, [cookie])
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -30,7 +80,6 @@ export default function Layout({children}) {
 
   return (
     <>
-    
       <Sidebar 
         sideNav={sideNav}
         sideColor={sideColor}
@@ -51,6 +100,9 @@ export default function Layout({children}) {
         hanldeChangeSideColor={hanldeChangeSideColor}
         hanldeSettingShow={hanldeSettingShow}
         settingShow={settingShow}
+        sideNav={sideNav}
+        handleDarkTheme={handleDarkTheme}
+        darkTheme={darkTheme}
       />
 
       {/* <Script src="/assets/js/plugins/perfect-scrollbar.min.js" />

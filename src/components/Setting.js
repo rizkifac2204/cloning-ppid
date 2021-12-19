@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faTimes, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import Link from 'next/link'
 import {signOut} from 'next-auth/react'
 
@@ -97,19 +97,19 @@ function Setting(props) {
           </div>
           <div className="d-flex">
             <button
-              className="btn bg-gradient-dark px-3 mb-2 active"
+              className={`btn bg-gradient-dark px-3 mb-2 ${props.sideNav === 'bg-gradient-dark'? 'active' : ''}`}
               onClick={()=>props.hanldeChangeSideNav("bg-gradient-dark")}
             >
               Dark
             </button>
             <button
-              className="btn bg-gradient-dark px-3 mb-2 ms-2"
+              className={`btn bg-gradient-dark px-3 mb-2 ms-2 ${props.sideNav === 'bg-transparent'? 'active' : ''}`}
               onClick={()=>props.hanldeChangeSideNav("bg-transparent")}
             >
               Transparent
             </button>
             <button
-              className="btn bg-gradient-dark px-3 mb-2 ms-2"
+              className={`btn bg-gradient-dark px-3 mb-2 ms-2 ${props.sideNav === 'bg-white'? 'active' : ''}`}
               onClick={()=>props.hanldeChangeSideNav("bg-white")}
             >
               White
@@ -130,14 +130,15 @@ function Setting(props) {
           <hr className="horizontal dark my-3" />
           {/* dark theme */}
           <div className="d-flex">
-            <h6 className="mb-0">Light / Dark</h6>
+            <h6 className="mb-0">Light / Dark {props.darkTheme}</h6>
             <div className="form-check form-switch ps-0 ms-auto my-auto">
               <input
                 className="form-check-input mt-1 ms-auto"
                 type="checkbox"
                 id="dark-version"
-                onClick={()=>(console.log('ok'))}
-              />
+                checked={props.darkTheme}
+                onChange={e=>props.handleDarkTheme(e)}
+              />{JSON.stringify()}
             </div>
           </div>
           <hr className="horizontal dark my-sm-4" />
