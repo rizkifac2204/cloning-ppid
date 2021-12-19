@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import Router, { useRouter } from "next/router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { Formik } from "formik";
 import Script from "next/script";
 import {
@@ -164,7 +162,7 @@ export default function Login() {
                                     onClick={() => signIn("google")}
                                   >
                                     Login Dengan{" "}
-                                    <FontAwesomeIcon icon={faGoogle} />
+                                    <i className="fa fa-google"></i>
                                     oogle
                                   </a>
                                 </p>

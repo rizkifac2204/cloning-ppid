@@ -1,10 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCog,
-  faTimes,
-  faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 
@@ -41,11 +34,11 @@ function Setting(props) {
       className={`fixed-plugin ${props.settingShow && "show"}`}
       id="fixedSetting"
     >
-      <a className="fixed-plugin-button text-dark position-fixed px-3 py-2">
-        <FontAwesomeIcon
-          icon={faCog}
-          onClick={() => props.hanldeSettingShow(true)}
-        />
+      <a
+        className="fixed-plugin-button text-dark position-fixed px-3 py-2"
+        onClick={() => props.hanldeSettingShow(true)}
+      >
+        <i className="fa fa-cog"></i>
       </a>
       <div className="card shadow-lg">
         <div className="card-header pb-0 pt-3">
@@ -60,7 +53,7 @@ function Setting(props) {
               className="btn btn-link text-dark p-0 fixed-plugin-close-button"
               onClick={() => props.hanldeSettingShow(false)}
             >
-              <FontAwesomeIcon icon={faTimes} />
+              <i className="fa fa-times"></i>
             </button>
           </div>
         </div>
@@ -80,7 +73,7 @@ function Setting(props) {
               className="btn bg-gradient-dark px-3 mb-0"
               onClick={() => signOut()}
             >
-              <FontAwesomeIcon icon={faSignOutAlt} /> Log Out
+              <i className="fa fa-sign-out-alt"></i> Log Out
             </button>
           </div>
           <hr className="horizontal dark" />

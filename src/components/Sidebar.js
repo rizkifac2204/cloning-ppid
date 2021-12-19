@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faHome, faCoffee } from "@fortawesome/free-solid-svg-icons";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 function Sidebar(props) {
@@ -23,12 +21,11 @@ function Sidebar(props) {
       id="sidenav-main"
     >
       <div className="sidenav-header">
-        <FontAwesomeIcon
-          icon={faTimes}
-          className={`end-3 top-1 cursor-pointer opacity-4 position-absolute d-none d-xl-none ${textColor()}`}
+        <i
+          className={`fa fa-times end-3 top-1 cursor-pointer opacity-5 position-absolute d-xl-none ${textColor()}`}
           aria-hidden="true"
           id="iconSidenav"
-        />
+        ></i>
         <Link href="/admin">
           <a className="navbar-brand m-0">
             <Image
@@ -55,7 +52,7 @@ function Sidebar(props) {
                   <div
                     className={`text-center me-2 d-flex align-items-center justify-content-center`}
                   >
-                    <FontAwesomeIcon icon={faHome} />
+                    <i className="fa fa-dashboard"></i>
                   </div>
                   <span className="nav-link-text ms-1">Dashboard</span>
                 </a>
@@ -72,7 +69,7 @@ function Sidebar(props) {
               <Link href="/admin/coba">
                 <a className={`nav-link ${activeLink("/admin/coba")}`}>
                   <div className="text-center me-2 d-flex align-items-center justify-content-center">
-                    <FontAwesomeIcon icon={faCoffee} />
+                    <i className="fa fa-coffee"></i>
                   </div>
                   <span className="nav-link-text ms-1">Coba</span>
                 </a>
@@ -82,7 +79,7 @@ function Sidebar(props) {
               <Link href="/admin/coba">
                 <a className={`nav-link ${activeLink("/admin/lagi")}`}>
                   <div className="text-center me-2 d-flex align-items-center justify-content-center">
-                    <FontAwesomeIcon icon={faCoffee} />
+                    <i className="fa fa-coffee"></i>
                   </div>
                   <span className="nav-link-text ms-1">lagi</span>
                 </a>
@@ -92,7 +89,7 @@ function Sidebar(props) {
               <Link href="/admin/coba">
                 <a className={`nav-link ${activeLink("/admin/lagi")}`}>
                   <div className="text-center me-2 d-flex align-items-center justify-content-center">
-                    <FontAwesomeIcon icon={faCoffee} />
+                    <i className="fa fa-coffee"></i>
                   </div>
                   <span className="nav-link-text ms-1">lagi</span>
                 </a>
@@ -102,7 +99,7 @@ function Sidebar(props) {
               <Link href="/admin/coba">
                 <a className={`nav-link ${activeLink("/admin/lagi")}`}>
                   <div className="text-center me-2 d-flex align-items-center justify-content-center">
-                    <FontAwesomeIcon icon={faCoffee} />
+                    <i className="fa fa-coffee"></i>
                   </div>
                   <span className="nav-link-text ms-1">lagi</span>
                 </a>
@@ -112,7 +109,7 @@ function Sidebar(props) {
               <Link href="/admin/coba">
                 <a className={`nav-link ${activeLink("/admin/lagi")}`}>
                   <div className="text-center me-2 d-flex align-items-center justify-content-center">
-                    <FontAwesomeIcon icon={faCoffee} />
+                    <i className="fa fa-coffee"></i>
                   </div>
                   <span className="nav-link-text ms-1">lagi</span>
                 </a>

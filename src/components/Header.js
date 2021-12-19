@@ -2,8 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 const listBreadCrumb = (breadcrumb) => {
   return breadcrumb.map((item, idx) => {
@@ -73,7 +71,6 @@ function Header(props) {
             <li className="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a
                 className="nav-link text-body p-0"
-                id="iconNavbarSidenav"
                 onClick={() => hanldeMenuShow()}
               >
                 <div className="sidenav-toggler-inner">
@@ -90,21 +87,21 @@ function Header(props) {
                 data-bs-toggle="dropdown"
                 aria-expanded="true"
               >
-                <FontAwesomeIcon icon={faBell} />
+                <i className="fa fa-bell"></i>
               </a>
               <ul
-                className="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
+                className="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
                 aria-labelledby="dropdownMenuButton"
               >
                 <li className="mb-2">
                   <a className="dropdown-item border-radius-md" href="#">
                     <div className="d-flex py-1">
-                      <div className="my-auto">
+                      <div className="my-auto me-2">
                         <Image
-                          src="/assets/img/small-logos/logo-spotify.svg"
-                          alt="Sptify"
-                          width={30}
-                          height={30}
+                          src="/images/no-file.png"
+                          alt="Contoh"
+                          width={50}
+                          height={50}
                         />
                       </div>
                       <div className="d-flex flex-column justify-content-center">
@@ -112,7 +109,7 @@ function Header(props) {
                           <span className="font-weight-bold">Lainnya</span> Data
                         </h6>
                         <p className="text-xs text-secondary mb-0">
-                          <i className="fa fa-clock me-1" />1 day
+                          <i className="fa fa-clock"></i> 1 day
                         </p>
                       </div>
                     </div>
@@ -121,12 +118,12 @@ function Header(props) {
                 <li>
                   <a className="dropdown-item border-radius-md">
                     <div className="d-flex py-1">
-                      <div className="my-auto">
+                      <div className="my-auto me-2">
                         <Image
-                          src="/assets/img/small-logos/logo-spotify.svg"
-                          alt="Sptify"
-                          width={30}
-                          height={30}
+                          src="/images/no-file.png"
+                          alt="Contoh"
+                          width={50}
+                          height={50}
                         />
                       </div>
                       <div className="d-flex flex-column justify-content-center">
@@ -134,7 +131,7 @@ function Header(props) {
                           Pemberitahuan / chat / lainnya
                         </h6>
                         <p className="text-xs text-secondary mb-0">
-                          <i className="fa fa-clock me-1" />2 days
+                          <i className="fa fa-clock"></i> 2 days
                         </p>
                       </div>
                     </div>
@@ -143,11 +140,8 @@ function Header(props) {
               </ul>
             </li>
             <li className="nav-item dropdown d-flex align-items-center">
-              <a className="nav-link text-body p-0">
-                <FontAwesomeIcon
-                  icon={faSignOutAlt}
-                  onClick={() => signOut()}
-                />
+              <a className="nav-link text-body p-0" onClick={() => signOut()}>
+                <i className="fa fa-sign-out"></i>
               </a>
             </li>
           </ul>
