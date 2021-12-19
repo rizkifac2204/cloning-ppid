@@ -1,49 +1,49 @@
-import Link from 'next/link'
-import {signOut} from 'next-auth/react'
-import { useState, useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 const listBreadCrumb = (breadcrumb) => {
-  return (
-    breadcrumb.map((item, idx) => {
-      if(idx + 1 !== breadcrumb.length){
-        return(
-          <li key={idx} className="breadcrumb-item text-sm">
-            <Link href={item.url}>
-              <a className="opacity-5 text-dark">
-                {item.text}
-              </a>
-            </Link>
-          </li>
-        )
-      } else {
-        return(
-          <li key={idx} className="breadcrumb-item text-sm text-dark active">
-            {item.text}
-          </li>
-        )
-      }
-    })
-  )
-}
+  return breadcrumb.map((item, idx) => {
+    if (idx + 1 !== breadcrumb.length) {
+      return (
+        <li key={idx} className="breadcrumb-item text-sm">
+          <Link href={item.url}>
+            <a className="opacity-5 text-dark">{item.text}</a>
+          </Link>
+        </li>
+      );
+    } else {
+      return (
+        <li key={idx} className="breadcrumb-item text-sm text-dark active">
+          {item.text}
+        </li>
+      );
+    }
+  });
+};
 
 const hanldeMenuShow = () => {
-  let classMenu = 'g-sidenav-pinned'
-  if(document.body.classList.contains(classMenu)){
-    document.body.classList.remove(classMenu)
+  let classMenu = "g-sidenav-pinned";
+  if (document.body.classList.contains(classMenu)) {
+    document.body.classList.remove(classMenu);
   } else {
-    document.body.classList.add(classMenu)
+    document.body.classList.add(classMenu);
   }
-}
+};
 
 function Header(props) {
-  const [breadcrumb, setbreadcrumb] = useState([])
-  const [title, settitle] = useState('Empty')
-  useEffect(()=>{
-    setbreadcrumb(props.header.breadcrumb ? props.header.breadcrumb : [{ url:'/admin', text:'Home' }])
-    settitle(props.header.title ? props.header.title : "empty")
-  },[props.header])
+  const [breadcrumb, setbreadcrumb] = useState([]);
+  const [title, settitle] = useState("Empty");
+  useEffect(() => {
+    setbreadcrumb(
+      props.header.breadcrumb
+        ? props.header.breadcrumb
+        : [{ url: "/admin", text: "Home" }]
+    );
+    settitle(props.header.title ? props.header.title : "empty");
+  }, [props.header]);
 
   return (
     <nav
@@ -73,7 +73,7 @@ function Header(props) {
               <a
                 className="nav-link text-body p-0"
                 id="iconNavbarSidenav"
-                onClick={()=>hanldeMenuShow()}
+                onClick={() => hanldeMenuShow()}
               >
                 <div className="sidenav-toggler-inner">
                   <i className="sidenav-toggler-line" />
@@ -96,10 +96,7 @@ function Header(props) {
                 aria-labelledby="dropdownMenuButton"
               >
                 <li className="mb-2">
-                  <a
-                    className="dropdown-item border-radius-md"
-                    href="#"
-                  >
+                  <a className="dropdown-item border-radius-md" href="#">
                     <div className="d-flex py-1">
                       <div className="my-auto">
                         <img
@@ -119,9 +116,7 @@ function Header(props) {
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item border-radius-md"
-                  >
+                  <a className="dropdown-item border-radius-md">
                     <div className="d-flex py-1">
                       <div className="my-auto">
                         <img
@@ -144,14 +139,17 @@ function Header(props) {
             </li>
             <li className="nav-item dropdown d-flex align-items-center">
               <a className="nav-link text-body p-0">
-                <FontAwesomeIcon icon={faSignOutAlt} onClick={()=>signOut()} />
+                <FontAwesomeIcon
+                  icon={faSignOutAlt}
+                  onClick={() => signOut()}
+                />
               </a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Header
+export default Header;

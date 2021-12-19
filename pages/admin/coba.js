@@ -328,15 +328,15 @@ function Coba() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-Coba.auth=true
+Coba.auth = true;
 Coba.header = {
-  breadcrumb:[
-    { url:'/admin', text:'Home' },
-    { url:'/admin/coba', text:'Halam Coba' },
+  breadcrumb: [
+    { url: "/admin", text: "Home" },
+    { url: "/admin/coba", text: "Halam Coba" },
   ],
-  title: "Halaman Coba"
-}
-export default Coba
+  title: "Halaman Coba",
+};
+export default Coba;

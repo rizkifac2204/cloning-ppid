@@ -1,22 +1,51 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faTimes, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import {useState,useEffect} from 'react'
-import Link from 'next/link'
-import {signOut} from 'next-auth/react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCog,
+  faTimes,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 function Setting(props) {
-
-  function handleFixed(e){
-    if(e.target.checked){
-      document.getElementById('navbarBlur').classList.add("position-sticky", "blur", "shadow-blur", "mt-4", "left-auto", "top-1", "z-index-sticky")
+  function handleFixed(e) {
+    if (e.target.checked) {
+      document
+        .getElementById("navbarBlur")
+        .classList.add(
+          "position-sticky",
+          "blur",
+          "shadow-blur",
+          "mt-4",
+          "left-auto",
+          "top-1",
+          "z-index-sticky"
+        );
     } else {
-      document.getElementById('navbarBlur').classList.remove("position-sticky", "blur", "shadow-blur", "mt-4", "left-auto", "top-1", "z-index-sticky")
+      document
+        .getElementById("navbarBlur")
+        .classList.remove(
+          "position-sticky",
+          "blur",
+          "shadow-blur",
+          "mt-4",
+          "left-auto",
+          "top-1",
+          "z-index-sticky"
+        );
     }
   }
   return (
-    <div className={`fixed-plugin ${props.settingShow && 'show'}`} id='fixedSetting'>
+    <div
+      className={`fixed-plugin ${props.settingShow && "show"}`}
+      id="fixedSetting"
+    >
       <a className="fixed-plugin-button text-dark position-fixed px-3 py-2">
-        <FontAwesomeIcon icon={faCog} onClick={() => props.hanldeSettingShow(true)} />
+        <FontAwesomeIcon
+          icon={faCog}
+          onClick={() => props.hanldeSettingShow(true)}
+        />
       </a>
       <div className="card shadow-lg">
         <div className="card-header pb-0 pt-3">
@@ -27,7 +56,10 @@ function Setting(props) {
           </div>
           {/* Toggle Button  */}
           <div className="float-end mt-4">
-            <button className="btn btn-link text-dark p-0 fixed-plugin-close-button" onClick={() => props.hanldeSettingShow(false)}>
+            <button
+              className="btn btn-link text-dark p-0 fixed-plugin-close-button"
+              onClick={() => props.hanldeSettingShow(false)}
+            >
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
@@ -39,18 +71,14 @@ function Setting(props) {
           </div>
           <div className="d-flex flex-column">
             <Link href="/admin/profile">
-              <a className="btn bg-gradient-dark px-3 mb-2">
-                Profile
-              </a>
+              <a className="btn bg-gradient-dark px-3 mb-2">Profile</a>
             </Link>
             <Link href="/admin/profile/edit">
-              <a className="btn bg-gradient-dark px-3 mb-2">
-                Ganti Data Diri
-              </a>
+              <a className="btn bg-gradient-dark px-3 mb-2">Ganti Data Diri</a>
             </Link>
             <button
               className="btn bg-gradient-dark px-3 mb-0"
-              onClick={()=>signOut()}
+              onClick={() => signOut()}
             >
               <FontAwesomeIcon icon={faSignOutAlt} /> Log Out
             </button>
@@ -66,27 +94,27 @@ function Setting(props) {
               <div className="badge-colors my-2 text-start">
                 <span
                   className="badge filter bg-gradient-primary"
-                  onClick={()=>props.hanldeChangeSideColor('primary')}
+                  onClick={() => props.hanldeChangeSideColor("primary")}
                 />
                 <span
                   className="badge filter bg-gradient-dark"
-                  onClick={()=>props.hanldeChangeSideColor('dark')}
+                  onClick={() => props.hanldeChangeSideColor("dark")}
                 />
                 <span
                   className="badge filter bg-gradient-info"
-                  onClick={()=>props.hanldeChangeSideColor('info')}
+                  onClick={() => props.hanldeChangeSideColor("info")}
                 />
                 <span
                   className="badge filter bg-gradient-success"
-                  onClick={()=>props.hanldeChangeSideColor('success')}
+                  onClick={() => props.hanldeChangeSideColor("success")}
                 />
                 <span
                   className="badge filter bg-gradient-warning"
-                  onClick={()=>props.hanldeChangeSideColor('warning')}
+                  onClick={() => props.hanldeChangeSideColor("warning")}
                 />
                 <span
                   className="badge filter bg-gradient-danger"
-                  onClick={()=>props.hanldeChangeSideColor('danger')}
+                  onClick={() => props.hanldeChangeSideColor("danger")}
                 />
               </div>
             </a>
@@ -97,20 +125,26 @@ function Setting(props) {
           </div>
           <div className="d-flex">
             <button
-              className={`btn bg-gradient-dark px-3 mb-2 ${props.sideNav === 'bg-gradient-dark'? 'active' : ''}`}
-              onClick={()=>props.hanldeChangeSideNav("bg-gradient-dark")}
+              className={`btn bg-gradient-dark px-3 mb-2 ${
+                props.sideNav === "bg-gradient-dark" ? "active" : ""
+              }`}
+              onClick={() => props.hanldeChangeSideNav("bg-gradient-dark")}
             >
               Dark
             </button>
             <button
-              className={`btn bg-gradient-dark px-3 mb-2 ms-2 ${props.sideNav === 'bg-transparent'? 'active' : ''}`}
-              onClick={()=>props.hanldeChangeSideNav("bg-transparent")}
+              className={`btn bg-gradient-dark px-3 mb-2 ms-2 ${
+                props.sideNav === "bg-transparent" ? "active" : ""
+              }`}
+              onClick={() => props.hanldeChangeSideNav("bg-transparent")}
             >
               Transparent
             </button>
             <button
-              className={`btn bg-gradient-dark px-3 mb-2 ms-2 ${props.sideNav === 'bg-white'? 'active' : ''}`}
-              onClick={()=>props.hanldeChangeSideNav("bg-white")}
+              className={`btn bg-gradient-dark px-3 mb-2 ms-2 ${
+                props.sideNav === "bg-white" ? "active" : ""
+              }`}
+              onClick={() => props.hanldeChangeSideNav("bg-white")}
             >
               White
             </button>
@@ -137,15 +171,16 @@ function Setting(props) {
                 type="checkbox"
                 id="dark-version"
                 checked={props.darkTheme}
-                onChange={e=>props.handleDarkTheme(e)}
-              />{JSON.stringify()}
+                onChange={(e) => props.handleDarkTheme(e)}
+              />
+              {JSON.stringify()}
             </div>
           </div>
           <hr className="horizontal dark my-sm-4" />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Setting
+export default Setting;

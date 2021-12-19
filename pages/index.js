@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "next/link";
 
 const Begin = () => {
   return (
@@ -10,10 +10,12 @@ const Begin = () => {
         <li>2. Tampilan Formulir dan pencarian data semua Bawaslu; atau</li>
         <li>3. dll</li>
       </ul>
-      <Link href="/login"><a>Ke Halaman Login Admin</a></Link>
+      <Link href="/login">
+        <a>Ke Halaman Login Admin</a>
+      </Link>
     </>
-  )
-}
+  );
+};
 
-Begin.auth = false
-export default Begin
+Begin.auth = false;
+export default Begin;
