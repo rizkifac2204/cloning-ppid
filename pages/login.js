@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
+import Image from "next/image";
 import { Formik } from "formik";
 import { Alert } from "react-bootstrap";
 import {
   useSession,
   getProviders,
-  signOut,
   signIn,
   getCsrfToken,
 } from "next-auth/react";
@@ -30,7 +30,7 @@ export default function Login() {
   }, []);
 
   if (session) {
-    useRouter().push("/admin");
+    Router.push("/admin");
   }
 
   return (
@@ -74,7 +74,12 @@ export default function Login() {
                     isSubmitting,
                   }) => (
                     <form onSubmit={handleSubmit}>
-                      <img src="/images/logo-dark.png" alt="logo-dark.png" />
+                      <Image
+                        src="/images/logo-dark.png"
+                        alt="Bawaslu"
+                        width={200}
+                        height={50}
+                      />
                       <input
                         name="csrfToken"
                         type="hidden"
@@ -86,14 +91,8 @@ export default function Login() {
                         )}
 
                         <div className="row mb-20">
-                          <div className="col-sm-10">
+                          <div className="col-sm-12">
                             <h3 className="text-left">Sign In</h3>
-                          </div>
-                          <div className="col-sm-2">
-                            <img
-                              src="/images/logo-1.png"
-                              alt="small-logo.png"
-                            />
                           </div>
                         </div>
                         <hr />

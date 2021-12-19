@@ -10,6 +10,7 @@ function Footer() {
                 href="https://bawaslu.go.id/"
                 className="font-weight-bold"
                 target="_blank"
+                rel="noreferrer"
               >
                 Bawaslu RI
               </a>
@@ -22,6 +23,7 @@ function Footer() {
                   href="https://ppid.bawaslu.go.id/"
                   className="nav-link text-muted"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   PPID
                 </a>
@@ -31,6 +33,7 @@ function Footer() {
                   href="http://jdih.bawaslu.go.id/"
                   className="nav-link text-muted"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   JDIH
                 </a>
@@ -40,6 +43,7 @@ function Footer() {
                   href="https://bawaslu.go.id/id/form/survey-layanan-pelaporan-dugaan-pelanggaran-pemilu"
                   className="nav-link text-muted"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   Survey Layanan
                 </a>
@@ -49,6 +53,7 @@ function Footer() {
                   href="https://www.instagram.com/rizkiduck/"
                   className="nav-link pe-0 text-muted"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   Author
                 </a>

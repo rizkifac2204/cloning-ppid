@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -99,9 +100,11 @@ function Header(props) {
                   <a className="dropdown-item border-radius-md" href="#">
                     <div className="d-flex py-1">
                       <div className="my-auto">
-                        <img
+                        <Image
                           src="/assets/img/small-logos/logo-spotify.svg"
-                          className="avatar avatar-sm bg-gradient-dark  me-3 "
+                          alt="Sptify"
+                          width={30}
+                          height={30}
                         />
                       </div>
                       <div className="d-flex flex-column justify-content-center">
@@ -119,9 +122,11 @@ function Header(props) {
                   <a className="dropdown-item border-radius-md">
                     <div className="d-flex py-1">
                       <div className="my-auto">
-                        <img
+                        <Image
                           src="/assets/img/small-logos/logo-spotify.svg"
-                          className="avatar avatar-sm bg-gradient-dark  me-3 "
+                          alt="Sptify"
+                          width={30}
+                          height={30}
                         />
                       </div>
                       <div className="d-flex flex-column justify-content-center">

@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Layout from "@/components/Layout";
 import "../styles/globals.css";
+import "../public/assets/css/material-dashboard.css?v=3.0.0";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 // Toast dibutuhkan pada semua halaman termasuk saat logout
