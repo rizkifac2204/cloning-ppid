@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
-import { useState, useEffect } from "react";
 
 const listBreadCrumb = (breadcrumb) => {
   return breadcrumb.map((item, idx) => {
@@ -33,16 +32,8 @@ const hanldeMenuShow = () => {
 };
 
 function Header(props) {
-  const [breadcrumb, setbreadcrumb] = useState([]);
-  const [title, settitle] = useState("Empty");
-  useEffect(() => {
-    setbreadcrumb(
-      props.header.breadcrumb
-        ? props.header.breadcrumb
-        : [{ url: "/admin", text: "Home" }]
-    );
-    settitle(props.header.title ? props.header.title : "empty");
-  }, [props.header]);
+  const title = props.header.title ? props.header.title : "empty";
+  const breadcrumb = props.header.breadcrumb ? props.header.breadcrumb : [];
 
   return (
     <nav

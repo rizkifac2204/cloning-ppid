@@ -2,33 +2,6 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 
 function Setting(props) {
-  function handleFixed(e) {
-    if (e.target.checked) {
-      document
-        .getElementById("navbarBlur")
-        .classList.add(
-          "position-sticky",
-          "blur",
-          "shadow-blur",
-          "mt-4",
-          "left-auto",
-          "top-1",
-          "z-index-sticky"
-        );
-    } else {
-      document
-        .getElementById("navbarBlur")
-        .classList.remove(
-          "position-sticky",
-          "blur",
-          "shadow-blur",
-          "mt-4",
-          "left-auto",
-          "top-1",
-          "z-index-sticky"
-        );
-    }
-  }
   return (
     <div
       className={`fixed-plugin ${props.settingShow && "show"}`}
@@ -142,21 +115,8 @@ function Setting(props) {
               White
             </button>
           </div>
-          {/* Navbar Fixed */}
-          <div className="mt-3 d-flex">
-            <h6 className="mb-0">Navbar Fixed</h6>
-            <div className="form-check form-switch ps-0 ms-auto my-auto">
-              <input
-                className="form-check-input mt-1 ms-auto"
-                type="checkbox"
-                id="navbarFixed"
-                onChange={handleFixed.bind(this)}
-              />
-            </div>
-          </div>
-          <hr className="horizontal dark my-3" />
           {/* dark theme */}
-          <div className="d-flex">
+          <div className="d-flex mt-3">
             <h6 className="mb-0">Light / Dark {props.darkTheme}</h6>
             <div className="form-check form-switch ps-0 ms-auto my-auto">
               <input

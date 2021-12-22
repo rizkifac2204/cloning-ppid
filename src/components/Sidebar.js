@@ -70,7 +70,7 @@ function Sidebar(props) {
               <a
                 data-bs-toggle="collapse"
                 href="#permohonanCollapse"
-                className="nav-link"
+                className={`nav-link ${textColor()}`}
                 aria-controls="permohonanCollapse"
                 role="button"
                 aria-expanded="false"
@@ -112,7 +112,7 @@ function Sidebar(props) {
               <a
                 data-bs-toggle="collapse"
                 href="#surveyCollapse"
-                className="nav-link"
+                className={`nav-link ${textColor()}`}
                 aria-controls="surveyCollapse"
                 role="button"
                 aria-expanded="false"
@@ -165,7 +165,7 @@ function Sidebar(props) {
               <a
                 data-bs-toggle="collapse"
                 href="#sahabatCollapse"
-                className="nav-link"
+                className={`nav-link ${textColor()}`}
                 aria-controls="sahabatCollapse"
                 role="button"
                 aria-expanded="false"

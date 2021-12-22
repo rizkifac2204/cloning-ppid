@@ -1,185 +1,248 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import { signIn, useSession } from "next-auth/react";
-import * as yup from "yup";
-import Image from "next/image";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import NextLink from "next/link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://loremit.com/">
-        Lorem IT
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Router, { useRouter } from "next/router";
+import { Formik } from "formik";
+import Script from "next/script";
+import {
+  useSession,
+  getProviders,
+  signIn,
+  getCsrfToken,
+} from "next-auth/react";
 
 export default function Login() {
-  const { data: session, status } = useSession();
-  const [error, setError] = useState(null);
-  const [dark, setDark] = useState(false);
-  const router = useRouter();
-
-  const validationSchema = yup.object({
-    username: yup.string("Masukan Username").required("Harus Diisi"),
-    password: yup.string("Masukan password").required("Password Harus Diisi"),
-  });
-
-  const handleSubmit = (values) => {
-    setError(null);
-    signIn("credentials", {
-      username: values.username,
-      password: values.password,
-      callbackUrl: "http://localhost:3000/admin",
-    });
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: handleSubmit,
-  });
-
-  const getQueryRouter = router.query;
-  useEffect(() => {
-    const getError = getQueryRouter.error;
-    if (getError) setError(getError);
-  }, [getQueryRouter]);
+  const [providers, setProviders] = useState([]);
+  const [csrfToken, setcsrfToken] = useState(undefined);
+  const { data: session } = useSession();
+  const { error } = useRouter().query;
 
   useEffect(() => {
-    if (status === "authenticated") return router.push("/admin");
-  }, [session, status]);
+    const setTheProviders = async () => {
+      const setupProviders = await getProviders();
+      setProviders(setupProviders);
+    };
+    setTheProviders();
+    const setThecsrf = async () => {
+      const setupcsrf = await getCsrfToken();
+      setcsrfToken(setupcsrf);
+    };
+    setThecsrf();
+  }, []);
+
+  if (session) {
+    Router.push("/admin");
+  }
 
   return (
     <>
-      <Grid container component="main" sx={{ height: "100vh" }}>
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage: "url(/images/bg.jpg)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1 }}>
-              <Image src="/images/logo-1.png" layout="fill" />
-            </Avatar>
-            <Typography variant="h5" component="span">
-              PPID
-            </Typography>
-            {error &&
-              (error == "CredentialsSignin" ? (
-                <Alert severity="error">
-                  Salah Memasukan Username/Password
-                </Alert>
-              ) : (
-                <Alert severity="error">{error}</Alert>
-              ))}
-            <Box sx={{ mt: 1 }}>
-              <form
-                noValidate
-                autoComplete="off"
-                onSubmit={formik.handleSubmit}
+      {providers?.credentials && (
+        <>
+          {csrfToken && (
+            <main className="main-content  mt-0">
+              <div
+                className="page-header align-items-start min-vh-100"
+                style={{
+                  backgroundImage: 'url("/images/bg.jpg")',
+                }}
               >
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  label="Username"
-                  name="username"
-                  autoComplete="username"
-                  value={formik.values.username}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.username && Boolean(formik.errors.username)
-                  }
-                  helperText={formik.touched.username && formik.errors.username}
-                />
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  autoComplete="current-password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
-                  helperText={formik.touched.password && formik.errors.password}
-                />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign In
-                </Button>
-              </form>
-              <Grid container>
-                <Grid item xs>
-                  <NextLink href="/">
-                    <Link variant="body2">Kembali</Link>
-                  </NextLink>
-                </Grid>
-                <Grid item>
-                  <Link
-                    href="#"
-                    variant="body2"
-                    onClick={() => signIn("google")}
-                  >
-                    Sudah Daftar Email? Login Dengan Google
-                  </Link>
-                </Grid>
-              </Grid>
-              <Copyright sx={{ mt: 5 }} />
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
+                <span className="mask bg-gradient-dark opacity-6" />
+                <div className="container my-auto">
+                  <div className="row">
+                    <div className="col-lg-4 col-md-8 col-12 mx-auto">
+                      <div className="card z-index-0 fadeIn3 fadeInBottom">
+                        <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                          <div className="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                            <h4 className="text-white font-weight-bolder text-center mt-2 mb-0">
+                              Sign in
+                            </h4>
+                          </div>
+                        </div>
+                        <div className="card-body">
+                          {error && (
+                            <i className="text-lg text-danger">Gagal Login</i>
+                          )}
+
+                          <Formik
+                            initialValues={{
+                              username: "",
+                              password: "",
+                              csrfToken: csrfToken,
+                            }}
+                            validate={(values) => {
+                              const errors = {};
+                              if (!values.username) {
+                                errors.username = "Username Harus Diisi";
+                              }
+                              if (!values.password) {
+                                errors.password = "Password Harus Diisi";
+                              }
+                              return errors;
+                            }}
+                            onSubmit={async (values, { setSubmitting }) => {
+                              setSubmitting(false);
+                              signIn("credentials", {
+                                username: values.username,
+                                password: values.password,
+                              });
+                            }}
+                          >
+                            {({
+                              values,
+                              errors,
+                              touched,
+                              handleChange,
+                              handleBlur,
+                              handleSubmit,
+                              isSubmitting,
+                            }) => (
+                              <form
+                                onSubmit={handleSubmit}
+                                role="form"
+                                className="text-start"
+                              >
+                                {errors.username && touched.username && (
+                                  <span className="text-danger text-sm">
+                                    {errors.username}
+                                  </span>
+                                )}
+                                <div className="input-group input-group-outline mb-3">
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    required
+                                    placeholder="Username"
+                                    name="username"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.username}
+                                  />
+                                </div>
+                                {errors.password && touched.password && (
+                                  <span className="text-danger text-sm">
+                                    {errors.password}
+                                  </span>
+                                )}
+                                <div className="input-group input-group-outline mb-3">
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    required
+                                    placeholder="Password"
+                                    name="password"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.password}
+                                  />
+                                </div>
+                                {/* <div className="form-check form-switch d-flex align-items-center mb-3">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    id="rememberMe"
+                                  />
+                                  <label
+                                    className="form-check-label mb-0 ms-2"
+                                    htmlFor="rememberMe"
+                                  >
+                                    Remember me
+                                  </label>
+                                </div> */}
+                                <div className="text-center">
+                                  <button
+                                    type="submit"
+                                    className="btn bg-gradient-primary w-100 my-4 mb-2"
+                                    disabled={isSubmitting}
+                                  >
+                                    Sign in
+                                  </button>
+                                </div>
+                                <p className="mt-4 text-sm text-center">
+                                  Akun mempunyai data email Google? <br />
+                                  <a
+                                    className="text-primary text-gradient font-weight-bold"
+                                    onClick={() => signIn("google")}
+                                  >
+                                    Login Dengan{" "}
+                                    <i className="fa fa-google"></i>
+                                    oogle
+                                  </a>
+                                </p>
+                              </form>
+                            )}
+                          </Formik>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <footer className="footer position-absolute bottom-2 py-2 w-100">
+                  <div className="container">
+                    <div className="row align-items-center justify-content-lg-between">
+                      <div className="col-12 col-md-6 my-auto">
+                        <div className="copyright text-center text-sm text-white text-lg-start">
+                          © 2022, Pejabat Pengelola Informasi dan Dokumentasi{" "}
+                          <a
+                            href="https://bawaslu.go.id/"
+                            className="font-weight-bold"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Bawaslu RI
+                          </a>
+                        </div>
+                      </div>
+                      <div className="col-12 col-md-6">
+                        <ul className="nav nav-footer justify-content-center justify-content-lg-end">
+                          <li className="nav-item">
+                            <a
+                              href="https://ppid.bawaslu.go.id/"
+                              className="nav-link text-muted"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              PPID
+                            </a>
+                          </li>
+                          <li className="nav-item">
+                            <a
+                              href="http://jdih.bawaslu.go.id/"
+                              className="nav-link text-muted"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              JDIH
+                            </a>
+                          </li>
+                          <li className="nav-item">
+                            <a
+                              href="https://bawaslu.go.id/id/form/survey-layanan-pelaporan-dugaan-pelanggaran-pemilu"
+                              className="nav-link text-muted"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Survey Layanan
+                            </a>
+                          </li>
+                          <li className="nav-item">
+                            <a
+                              href="https://www.instagram.com/rizkiduck/"
+                              className="nav-link pe-0 text-muted"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Author
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </footer>
+              </div>
+            </main>
+          )}
+        </>
+      )}
+      <Script src="/assets/js/custom.js" />
     </>
   );
 }

@@ -9,15 +9,6 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Setting from "./Setting";
 import Footer from "./Footer";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Paper } from "@mui/material";
-
-const useDarkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-const useLightTheme = createTheme();
 
 export default function Layout({ children }) {
   const [settingShow, setSettingShow] = useState(false);
@@ -28,22 +19,22 @@ export default function Layout({ children }) {
   const router = useRouter();
 
   useEffect(() => {
-    // const CsettingNav = Cookies.get("settingNav");
-    // if (CsettingNav && CsettingNav !== "{}") {
-    //   setCookie(JSON.parse(CsettingNav));
-    //   if (JSON.parse(CsettingNav).CdarkTheme) {
-    //     document.body.classList.add("dark-version");
-    //   } else {
-    //     document.body.classList.remove("dark-version");
-    //   }
-    //   setDarkTheme(JSON.parse(CsettingNav).CdarkTheme || false);
-    //   setSideNav(JSON.parse(CsettingNav).CsideNav || "bg-gradient-dark");
-    //   setSideColor(JSON.parse(CsettingNav).CsideColor || "primary");
-    // } else {
-    //   setDarkTheme(false);
-    //   setSideNav("bg-gradient-dark");
-    //   setSideColor("primary");
-    // }
+    const CsettingNav = Cookies.get("settingNav");
+    if (CsettingNav && CsettingNav !== "{}") {
+      setCookie(JSON.parse(CsettingNav));
+      if (JSON.parse(CsettingNav).CdarkTheme) {
+        document.body.classList.add("dark-version");
+      } else {
+        document.body.classList.remove("dark-version");
+      }
+      setDarkTheme(JSON.parse(CsettingNav).CdarkTheme || false);
+      setSideNav(JSON.parse(CsettingNav).CsideNav || "bg-gradient-dark");
+      setSideColor(JSON.parse(CsettingNav).CsideColor || "primary");
+    } else {
+      setDarkTheme(false);
+      setSideNav("bg-gradient-dark");
+      setSideColor("primary");
+    }
   }, []);
 
   const hanldeChangeSideNav = (color) => {
@@ -62,16 +53,15 @@ export default function Layout({ children }) {
   };
   const handleDarkTheme = (e) => {
     setDarkTheme(e.target.checked);
-    // setDarkTheme(e.target.checked);
-    // setCookie({
-    //   ...cookie,
-    //   CdarkTheme: e.target.checked,
-    // });
-    // if (e.target.checked) {
-    //   document.body.classList.add("dark-version");
-    // } else {
-    //   document.body.classList.remove("dark-version");
-    // }
+    setCookie({
+      ...cookie,
+      CdarkTheme: e.target.checked,
+    });
+    if (e.target.checked) {
+      document.body.classList.add("dark-version");
+    } else {
+      document.body.classList.remove("dark-version");
+    }
   };
   const hanldeSettingShow = (bool) => setSettingShow(bool);
 
@@ -90,27 +80,23 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <ThemeProvider theme={darkTheme ? useDarkTheme : useLightTheme}>
-        <Paper style={{ height: "100vh" }}>
-          <Sidebar sideNav={sideNav} sideColor={sideColor} />
+      <Sidebar sideNav={sideNav} sideColor={sideColor} />
 
-          <PerfectScrollbar className="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-            <Header header={children.type.header} />
-            <div className="container-fluid py-4">{children}</div>
-            <Footer />
-          </PerfectScrollbar>
+      <PerfectScrollbar className="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+        <Header header={children.type.header} />
+        <div className="container-fluid py-4">{children}</div>
+        <Footer />
+      </PerfectScrollbar>
 
-          <Setting
-            hanldeChangeSideNav={hanldeChangeSideNav}
-            hanldeChangeSideColor={hanldeChangeSideColor}
-            hanldeSettingShow={hanldeSettingShow}
-            settingShow={settingShow}
-            sideNav={sideNav}
-            handleDarkTheme={handleDarkTheme}
-            darkTheme={darkTheme}
-          />
-        </Paper>
-      </ThemeProvider>
+      <Setting
+        hanldeChangeSideNav={hanldeChangeSideNav}
+        hanldeChangeSideColor={hanldeChangeSideColor}
+        hanldeSettingShow={hanldeSettingShow}
+        settingShow={settingShow}
+        sideNav={sideNav}
+        handleDarkTheme={handleDarkTheme}
+        darkTheme={darkTheme}
+      />
 
       <Script src="/assets/js/custom.js" />
       <Script src="https://kit.fontawesome.com/42d5adcbca.js" />
